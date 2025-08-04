@@ -1,12 +1,13 @@
-Flask
-python-dotenv
+Flask==3.0.3
+python-dotenv==1.0.1
 
-langchain
-langchain-core
-langchain-google-genai
-langchain-text-splitters
-langchain-community
-langchain-pinecone
-pinecone-client
-bs4
+langchain==0.2.0
+langchain-core==0.1.70
+langchain-google-genai==1.0.1
+langchain-text-splitters==0.0.1
+langchain-community==0.2.0
+langchain-pinecone==0.1.0
+
+pinecone-client==3.0.2
+beautifulsoup4==4.12.3  
 
