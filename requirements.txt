@@ -1,15 +1,15 @@
 
 
-Flask==3.0.3
-python-dotenv==1.0.1
-langchain==0.2.43
-langchain-core==0.1.53
+Flask
+python-dotenv
+langchain
+langchain-core
 
-langchain-google-genai==1.0.1
-langchain-text-splitters==0.0.1
-langchain-community==0.2.0
-langchain-pinecone==0.1.0
+langchain-google-genai
+langchain-text-splitters
+langchain-community
+langchain-pinecone
 
-pinecone-client==3.0.2
+pinecone-client
 #beautifulsoup4==4.12.3  
 
