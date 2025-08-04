@@ -9,6 +9,4 @@ langchain-community
 langchain-pinecone
 pinecone-client
 bs4
-beautifulsoup4
-
 
