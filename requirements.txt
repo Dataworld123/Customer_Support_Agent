@@ -9,5 +9,5 @@ langchain-community==0.2.0
 langchain-pinecone==0.1.0
 
 pinecone-client==3.0.2
-beautifulsoup4==4.12.3  
+#beautifulsoup4==4.12.3  
 
