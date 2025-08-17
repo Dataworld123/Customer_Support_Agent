@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Meenakshi Tomar - Dental Assistant</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            height: 100vh !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .chat-container {
+            width: 100% !important;
+            max-width: 400px !important;
+            height: 600px !important;
+            background: white !important;
+            border-radius: 20px !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow: hidden !important;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%) !important;
+            color: white !important;
+            padding: 20px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 15px !important;
+        }
+
+        .avatar {
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            background: rgba(255,255,255,0.2) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 20px !important;
+        }
+
+        .header-info {
+            flex: 1 !important;
+        }
+
+        .header-title {
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            margin-bottom: 2px !important;
+        }
+
+        .header-subtitle {
+            font-size: 14px !important;
+            opacity: 0.9 !important;
+        }
+
+        .chat-messages {
+            flex: 1 !important;
+            padding: 20px !important;
+            overflow-y: auto !important;
+            background: #f8fafc !important;
+        }
+
+        .message {
+            margin-bottom: 20px !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 10px !important;
+        }
+
+        .message.user {
+            flex-direction: row-reverse !important;
+        }
+
+        .message-avatar {
+            width: 32px !important;
+            height: 32px !important;
+            border-radius: 50% !important;
+            background: #e2e8f0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 14px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .message.user .message-avatar {
+            background: #4f46e5 !important;
+            color: white !important;
+        }
+
+        .message-content {
+            max-width: 80% !important;
+            padding: 12px 16px !important;
+            border-radius: 18px !important;
+            background: white !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        }
+
+        .message.user .message-content {
+            background: #4f46e5 !important;
+            color: white !important;
+        }
+
+        .message-text {
+            line-height: 1.4 !important;
+            font-size: 14px !important;
+        }
+
+        .message-text ul {
+            margin: 8px 0 !important;
+            padding-left: 0 !important;
+            list-style: none !important;
+        }
+
+        .message-text li {
+            margin-bottom: 6px !important;
+            padding-left: 20px !important;
+            position: relative !important;
+        }
+
+        .message-text li:before {
+            content: "•" !important;
+            position: absolute !important;
+            left: 0 !important;
+            color: #4f46e5 !important;
+            font-weight: bold !important;
+        }
+
+        .chat-input {
+            padding: 20px !important;
+            background: white !important;
+            border-top: 1px solid #e2e8f0 !important;
+        }
+
+        .input-container {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            background: #f1f5f9 !important;
+            border-radius: 25px !important;
+            padding: 8px 15px !important;
+        }
+
+        .input-field {
+            flex: 1 !important;
+            border: none !important;
+            background: none !important;
+            outline: none !important;
+            padding: 8px 0 !important;
+            font-size: 14px !important;
+            color: #334155 !important;
+        }
+
+        .send-btn {
+            background: #4f46e5 !important;
+            color: white !important;
+            width: 35px !important;
+            height: 35px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .powered-by {
+            text-align: center !important;
+            padding: 10px !important;
+            font-size: 11px !important;
+            color: #94a3b8 !important;
+        }
+
+        .typing-indicator {
+            display: none !important;
+            padding: 12px 16px !important;
+            background: white !important;
+            border-radius: 18px !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+            max-width: 100px !important;
+            border: 1px solid #e2e8f0 !important;
+        }
+
+        .typing-dots {
+            display: flex !important;
+            gap: 4px !important;
+        }
+
+        .typing-dot {
+            width: 8px !important;
+            height: 8px !important;
+            border-radius: 50% !important;
+            background: #4f46e5 !important;
+            animation: typing 1.4s infinite ease-in-out !important;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s !important;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s !important;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s !important;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0px);
+                opacity: 0.5;
+            }
+            30% {
+                transform: translateY(-15px);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div class="avatar">
+                <i class="fas fa-tooth"></i>
+            </div>
+            <div class="header-info">
+                <div class="header-title">Hi there 👋</div>
+                <div class="header-subtitle">We typically reply within a few minutes.</div>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chatMessages">
+            <!-- Welcome message -->
+            <div class="message">
+                <div class="message-avatar">
+                    <i class="fas fa-tooth"></i>
+                </div>
+                <div class="message-content">
+                    <div class="message-text">
+                        Welcome! I'm Dr. Meenakshi Tomar's dental assistant. How can I help you with your dental health today?
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Typing indicator -->
+            <div class="message" id="typingIndicator" style="display: none;">
+                <div class="message-avatar">
+                    <i class="fas fa-tooth"></i>
+                </div>
+                <div class="typing-indicator" style="display: block;">
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="chat-input">
+            <form id="messageForm">
+                <div class="input-container">
+                    <input type="text" id="messageInput" class="input-field" placeholder="Enter your message..." required>
+                    <button type="submit" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+            <div class="powered-by">
+                POWERED BY <strong>DotZoo</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            function scrollToBottom() {
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function showTyping() {
+                console.log("🔄 Showing typing indicator...");
+                $("#typingIndicator").fadeIn(300);
+                scrollToBottom();
+            }
+
+            function hideTyping() {
+                console.log("✅ Hiding typing indicator...");
+                $("#typingIndicator").fadeOut(200);
+            }
+
+            function formatBulletPoints(text) {
+                if (text.includes('•')) {
+                    var lines = text.split('\n');
+                    var bulletPoints = [];
+                    var regularText = [];
+
+                    lines.forEach(function(line) {
+                        line = line.trim();
+                        if (line.startsWith('•')) {
+                            bulletPoints.push('<li>' + line.substring(1).trim() + '</li>');
+                        } else if (line.length > 0) {
+                            regularText.push(line);
+                        }
+                    });
+
+                    if (bulletPoints.length > 0) {
+                        var formattedResponse = '';
+                        if (regularText.length > 0) {
+                            formattedResponse += regularText.join('<br>') + '<br>';
+                        }
+                        formattedResponse += '<ul>' + bulletPoints.join('') + '</ul>';
+                        return formattedResponse;
+                    }
+                }
+                return text.replace(/\n/g, '<br>');
+            }
+
+            function addUserMessage(message) {
+                const userHtml = `
+                    <div class="message user">
+                        <div class="message-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">${message}</div>
+                        </div>
+                    </div>
+                `;
+                $("#chatMessages").append(userHtml);
+                scrollToBottom();
+            }
+
+            function addBotMessage(message) {
+                const formattedMessage = formatBulletPoints(message);
+                const botHtml = `
+                    <div class="message">
+                        <div class="message-avatar">
+                            <i class="fas fa-tooth"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">${formattedMessage}</div>
+                        </div>
+                    </div>
+                `;
+                $("#chatMessages").append(botHtml);
+                scrollToBottom();
+            }
+
+            function addStreamingBotMessage() {
+                // Generate unique ID for each message
+                const messageId = 'streaming_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                const textId = 'text_' + messageId;
+
+                const botHtml = `
+                    <div class="message" id="${messageId}">
+                        <div class="message-avatar">
+                            <i class="fas fa-tooth"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text" id="${textId}"></div>
+                        </div>
+                    </div>
+                `;
+                $("#chatMessages").append(botHtml);
+                scrollToBottom();
+                return $("#" + textId);
+            }
+
+            function updateStreamingMessage(text, textElement) {
+                const formattedMessage = formatBulletPoints(text);
+                if (textElement && textElement.length > 0) {
+                    textElement.html(formattedMessage);
+                } else {
+                    console.log("⚠️ Text element not found for update");
+                }
+                scrollToBottom();
+            }
+
+            $("#messageForm").on("submit", function(event) {
+                event.preventDefault();
+
+                const message = $("#messageInput").val().trim();
+                if (!message) return;
+
+                addUserMessage(message);
+                $("#messageInput").val("");
+
+                console.log("🚀 Starting streaming response for:", message);
+                showTyping();
+
+                // Create NEW streaming message container for THIS specific message
+                const streamingTextElement = addStreamingBotMessage();
+                console.log("📦 Created new message box with ID:", streamingTextElement.attr('id'));
+
+                // Use fetch for streaming instead of AJAX
+                fetch('/stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'msg=' + encodeURIComponent(message)
+                })
+                .then(response => {
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+
+                    function readStream() {
+                        return reader.read().then(({ done, value }) => {
+                            if (done) {
+                                console.log("✅ Streaming completed");
+                                return;
+                            }
+
+                            const chunk = decoder.decode(value);
+                            const lines = chunk.split('\n');
+
+                            lines.forEach(line => {
+                                if (line.startsWith('data: ')) {
+                                    try {
+                                        const data = JSON.parse(line.substring(6));
+
+                                        if (data.type === 'typing' && data.status === 'start') {
+                                            console.log("🔄 Typing started");
+                                        } else if (data.type === 'typing' && data.status === 'end') {
+                                            console.log("✅ Typing ended");
+                                            hideTyping();
+                                        } else if (data.type === 'partial') {
+                                            updateStreamingMessage(data.content, streamingTextElement);
+                                        } else if (data.type === 'response') {
+                                            updateStreamingMessage(data.content, streamingTextElement);
+                                        } else if (data.type === 'error') {
+                                            hideTyping();
+                                            updateStreamingMessage("Sorry, I'm having trouble connecting right now. Please try again.", streamingTextElement);
+                                        }
+                                    } catch (e) {
+                                        console.log("Parse error:", e);
+                                    }
+                                }
+                            });
+
+                            return readStream();
+                        });
+                    }
+
+                    return readStream();
+                })
+                .catch(error => {
+                    console.log("❌ Streaming error:", error);
+                    console.log("🔄 Falling back to regular AJAX...");
+
+                    // Fallback to regular AJAX request
+                    $.ajax({
+                        data: { msg: message },
+                        type: "POST",
+                        url: "/get",
+                        timeout: 30000
+                    }).done(function(data) {
+                        console.log("✅ Fallback AJAX completed");
+                        hideTyping();
+                        updateStreamingMessage(data.response, streamingTextElement);
+                    }).fail(function() {
+                        console.log("❌ Fallback AJAX also failed");
+                        hideTyping();
+                        updateStreamingMessage("Sorry, I'm having trouble connecting right now. Please try again.", streamingTextElement);
+                    });
+                });
+            });
+
+            scrollToBottom();
+        });
+    </script>
+</body>
+</html>

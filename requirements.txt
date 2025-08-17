@@ -9,7 +9,8 @@ langchain-google-genai
 langchain-text-splitters
 langchain-community
 langchain-pinecone
+tavily-python
 
 pinecone-client
-#beautifulsoup4==4.12.3  
+#beautifulsoup4==4.12.3
 

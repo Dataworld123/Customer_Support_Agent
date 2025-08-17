@@ -217,6 +217,23 @@ border-radius: 0 0 15px 15px !important;
 	cursor: pointer;
 	background-color: rgba(0,0,0,0.2);
 }
+/* Bullet point styling for bot responses */
+.msg_cotainer ul {
+	margin: 8px 0 !important;
+	padding-left: 18px !important;
+	color: white;
+}
+
+.msg_cotainer ul li {
+	margin-bottom: 5px !important;
+	line-height: 1.4;
+	list-style-type: disc !important;
+}
+
+.msg_cotainer ul li::marker {
+	color: rgba(255, 255, 255, 0.8);
+}
+
 @media(max-width: 576px){
 	.contacts_card{
 	margin-bottom: 15px !important;
